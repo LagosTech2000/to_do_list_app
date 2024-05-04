@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ToDoListApp</title>
+    <title>Friends App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
- <!-- Include Tailwind CSS via CDN -->
+   <!-- Include Tailwind CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-gradient-to-r to-blue-300 from-purple-300">
+  <body>
     <%= render 'home/header' %>  
+    <div class="container">
+<%if notice  %>
+   <%= render 'layouts/alerts'%>
+<% end  %>
+
     <%= yield %>
+    
+    </div>
+    
   </body>
 </html>

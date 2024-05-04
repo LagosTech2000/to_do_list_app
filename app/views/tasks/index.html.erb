@@ -1,0 +1,41 @@
+<h1 class="text-3xl font-semibold mt-8 mb-4">Tasks</h1>
+
+<div class="">
+
+  
+  <table class="text-left w-full">
+    <thead class="bg-gray-400 flex text-dark w-full">
+      <tr class="flex w-full mb-4">
+        <th class="p-4 w-1/4">Title</th>
+        <th class="p-4 w-1/4">Description</th>
+        <th class="p-4 w-1/4">Due Date</th>
+       <!-- Use flex-grow to occupy remaining space -->
+      <th class="p-4">
+        <%= link_to 'New', new_task_path, class: "hover:text-green-700 hover:bg-white border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
+      </th>
+      </tr>
+    </thead>
+    <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
+      <% @tasks.each do |task| %>
+        <tr class="flex w-full mb-4">
+          <td class="p-4 w-1/4"><%= task.title %></td>
+          <td class="p-4 w-1/4"><%= task.description %></td>
+          <td class="p-4 w-1/4"><%= task.dueDate %></td>
+        <td class="p-4 w-1/4">
+  <div class="flex justify-between">
+  <%= link_to 'Show', task, class: "text-blue-500 hover:text-blue-700 hover:bg-white border border-blue-500 rounded-full px-4 py-2 transition duration-300 ease-in-out" %>
+  <%= link_to 'Edit', edit_task_path(task), class: "text-green-500 hover:text-green-700 hover:bg-white border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
+  <%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:text-red-700 hover:bg-white border border-red-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
+</div>
+
+</td>
+
+          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+

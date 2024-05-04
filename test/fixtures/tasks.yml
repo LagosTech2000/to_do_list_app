@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  dueDate: 2024-05-03 22:05:35
+
+two:
+  title: MyString
+  description: MyText
+  dueDate: 2024-05-03 22:05:35

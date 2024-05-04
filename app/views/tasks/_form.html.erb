@@ -1,0 +1,32 @@
+<%= form_with(model: task, html: { class: "max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" }) do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+      <h2 class="font-semibold"> <%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul class="mt-2">
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.text_field :title, class: "form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.text_area :description, class: "form-textarea mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :dueDate, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.datetime_select :dueDate, class: "form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>
