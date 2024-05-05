@@ -1,6 +1,12 @@
-<h1>Editing Task</h1>
+<div class="max-w-md mx-auto">
+  <h1 class="text-3xl font-semibold mb-6">Editing Task</h1>
 
-<%= render 'form', task: @task %>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <%= render 'form', task: @task %>
+  </div>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+  <div class="flex justify-between">
+    <%= link_to 'Show', @task, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    <%= link_to 'Back', tasks_path, class: "text-blue-500 hover:text-blue-700 font-semibold" %>
+  </div>
+</div>

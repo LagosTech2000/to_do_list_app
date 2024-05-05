@@ -13,12 +13,12 @@
 
   <div class="mb-4">
     <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_field :title, class: "form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+    <%= form.text_field :title, class: "text-center form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
   </div>
 
   <div class="mb-4">
     <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_area :description, class: "form-textarea mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
+    <%= form.text_area :description, class: "text-center form-textarea mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
   </div>
 
   <div class="mb-4">
@@ -26,7 +26,7 @@
     <%= form.datetime_select :dueDate, class: "form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
   </div>
 
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-center">
     <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>
