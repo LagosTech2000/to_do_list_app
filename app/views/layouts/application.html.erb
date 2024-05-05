@@ -6,14 +6,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
- <!-- Include Tailwind CSS via CDN -->
+  <!-- Include Tailwind CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
-<!-- Include Font Awesome Icons -->
+    <!-- Include Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--Include Turbo Links (HotWire) -->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <!--include Chart Js -->
+    <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chart.js' %>
     
 
   </head>

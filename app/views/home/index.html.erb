@@ -1,33 +1,58 @@
-<!-- app/views/pages/home.html.erb -->
 
-<div class="max-w-6xl mx-auto py-8 px-4 grid grid-cols-2 gap-6 lg:grid-cols-3 lg:gap-8">
-  <!-- Widget 1: Latest News (Large) -->
-  <div class="bg-white rounded-lg shadow-md p-6 col-span-2 lg:col-span-1">
-    <h2 class="text-2xl font-semibold mb-4">My To Dos</h2>
-    <!-- Insert Latest News widget content here -->
-  </div>
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-4">Task Dashboard</h1>
 
-  <!-- Widget 2: Featured Products (Small) -->
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-semibold mb-4">Create a New Task</h2>
-    <!-- Insert Featured Products widget content here -->
-  </div>
+  <!-- Tasks Overview -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- General dashboard item -->
+    <div class="bg-white rounded-lg shadow-md p-4">
+      <h2 class="text-xl font-semibold mb-2">Tasks Overview</h2>
+      <div class="flex items-center mb-2">
+        <span class="mr-2">Total Tasks:</span>
+        <%= @tasks.count %>
+      </div>
+      <div class="flex items-center mb-2">
+        <span class="mr-2">Completed:</span>
+        <%= @tasks.where(status: 'completed').count %>
+      </div>
+      <div class="flex items-center">
+        <span class="mr-2">Pending:</span>
+        <%= @tasks.where(status: 'pending').count %>
+      </div>
+    </div>
 
-  <!-- Widget 3: Upcoming Events (Small) -->
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-semibold mb-4">My Pending Tasks</h2>
-    <!-- Insert Upcoming Events widget content here -->
-  </div>
-
-  <!-- Widget 4: Social Media Feed (Medium) -->
-  <div class="bg-white rounded-lg shadow-md p-6 col-span-2">
-    <h2 class="text-2xl font-semibold mb-4">Edit My Profile</h2>
-    <!-- Insert Social Media Feed widget content here -->
-  </div>
-
-  <!-- Widget 5: Newsletter Signup (Small) -->
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-semibold mb-4">Who made this?</h2>
-    <!-- Insert Newsletter Signup widget content here -->
+    <!-- Pie Chart -->
+    <div class="bg-white rounded-lg shadow-md p-4">
+      <h2 class="text-xl font-semibold mb-2">Task Status Distribution</h2>
+      <canvas id="taskStatusChart" width="400" height="400"></canvas>
+    </div>
   </div>
 </div>
+
+<script>
+  
+    var ctx = document.getElementById('taskStatusChart').getContext('2d');
+    var taskStatusChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Completed', 'Pending'],
+        datasets: [{
+          label: 'Task Status Distribution',
+          data: [<%= @tasks.where(status: 'completed').count %>, <%= @tasks.where(status: 'pending').count %>],
+          backgroundColor: [
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(255, 99, 132, 0.5)'
+          ],
+          borderColor: [
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+       
+      }
+    });
+  
+</script>

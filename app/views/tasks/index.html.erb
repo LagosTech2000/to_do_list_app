@@ -1,6 +1,6 @@
 <div class="max-w-3xl mx-auto px-4 my-16">
   <div class="flex items-center justify-between pb-6 border-b dark:border-slate-700">
-    <h1 class="font-bold text-3xl">My Task</h1>
+    <h1 class="font-bold text-3xl">My Tasks</h1>
     <div class="flex items-center justify-end">
       <%= form_with url: tasks_path, method: :get, data: { turbo_frame: "tasks", turbo_action: "advance", controller: 'form', action: "input->form#submit" } do %>
         <%= text_field_tag "filter", nil, placeholder: "Filter (title)", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
@@ -31,22 +31,30 @@
             </p>
             <p class="text-gray-700 mb-2"><%= task.description %></p>
             <p class="text-gray-600"><strong>Due Date:</strong> <%= task.dueDate %></p>
-            <div class="flex justify-end mt-4">
-              <%= link_to 'Show', task,
-              data: {turbo_frame: "_top"},
-               class: "font-bold text-blue-500 hover:text-blue-700 hover:bg-white border border-blue-500 rounded-full px-4 py-2 transition duration-300 ease-in-out" %>
-              <%= link_to 'Edit', edit_task_path(task),
-              data: {turbo_frame: "_top"}, class: "font-bold text-green-500 hover:text-green-700 hover:bg-white border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
-              <%= button_to 'Delete', task,data: {turbo_frame: "_top"}, method: :delete, remote: true, data: { turbo_confirm: 'Are you sure?' }, class: "font-bold bg-transparent text-red-500 hover:text-red-700 hover:bg-white border border-red-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
-            </div>
+             <div class="flex justify-end mt-4">
+                <%= link_to task, data: { turbo_frame: "_top" }, class: "font-bold text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-500 rounded-full px-4 py-2 transition duration-300 ease-in-out" do %>
+                  <i class="fas fa-eye"></i>
+                <% end %>
+
+                <%= link_to edit_task_path(task), data: { turbo_frame: "_top" }, class: "font-bold text-green-500 hover:text-white hover:bg-green-500 border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" do %>
+                  <i class="fas fa-edit"></i>
+                <% end %>
+
+                <%= button_to task, method: :delete, remote: true, data: { turbo_frame: "_top", turbo_confirm: 'Are you sure?' }, class: "font-bold bg-transparent text-red-500 hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
+              </div>
+
           </div>
         <% end %>
       <% end %>
-      <%== pagy_nav(@pagy)%>
+      
     </div>
   <% end %>
+  
     </div>
   <% end %>
+
 
 
 </div>

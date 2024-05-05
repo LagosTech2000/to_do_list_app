@@ -1,26 +1,22 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show, :edit, :update]
+  before_action :authenticate_user!, except: [:show, :edit, :update]
   before_action :correct_user, only: [:edit, :update, :destroy, :show]
-  before_action :take_home, only: [:index]
   # GET /tasks or /tasks.json
   def index
     #@tasks = Task.all
     if params[:filter].present?
       search_query = "%#{params[:filter].downcase}%"
-      filtered = Task.where("LOWER(tasks.title) LIKE ?", search_query)
+      filtered = Task.where("LOWER(tasks.title) LIKE ? and user_id = ?", search_query, current_user.id)
     else
-      filtered = Task.all
+     filtered =  Task.where("tasks.user_id = ?", current_user.id)
     end
   
-    column = params[:column] || 'title'
+    column = params[:column] || 'description'
     filtered = filtered.order(column)
   
-    @pagy, @tasks = pagy(filtered, items: 8)
+    @pagy, @tasks = pagy(filtered, items: 10)
   end
-  
-  
-  
 
   # GET /tasks/1 or /tasks/1.json
   def show
@@ -77,10 +73,6 @@ class TasksController < ApplicationController
   def correct_user    
     @friend = current_user.tasks.find_by(id: params[:id ])
     redirect_to tasks_path, notice: "Not Authorized to edit this Task" if @friend.nil?    
-  end
-
-  def take_home    
-      redirect_to root_path, notice: "You Must Log in First" if current_user.nil?    
   end
 
   private
