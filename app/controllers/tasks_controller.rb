@@ -4,8 +4,11 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy, :show]
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    #@tasks = Task.all
+    @tasks = Task.where("title LIKE ? OR status LIKE ?", "%#{params[:filter]}%", "%#{params[:filter]}%")
   end
+  
+  
 
   # GET /tasks/1 or /tasks/1.json
   def show
@@ -72,6 +75,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :dueDate, :user_id)
+      params.require(:task).permit(:title, :description, :dueDate, :status, :user_id)
     end
 end

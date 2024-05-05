@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2024_05_05_024728) do
     t.string "title"
     t.text "description"
     t.datetime "dueDate"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"

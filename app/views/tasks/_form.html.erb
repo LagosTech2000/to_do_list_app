@@ -26,6 +26,11 @@
     <%= form.datetime_select :dueDate, class: "bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
   </div>
 
+  <div class="mb-4">
+    <%= form.label :status, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.select :status, ['pending', 'completed'], {}, class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
+  </div>
+
   <div class="mb-4">   
     <%= form.number_field :user_id, id: :task_user_id,
      class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200",
