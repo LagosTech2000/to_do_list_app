@@ -13,11 +13,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    
+
   </head>
 
   <body class="bg-gradient-to-r to-blue-300 from-purple-300">
     <%= render 'home/header' %>  
+    <%if notice  %>
+    <%= render 'layouts/alerts'%>
+    <% end  %>
     <%= yield %>        
     <%= render 'home/footer' %>  
+
+    <%= turbo_include_tags %>
   </body>
 </html>

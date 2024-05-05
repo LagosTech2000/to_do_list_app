@@ -1,3 +1,21 @@
-<div class="alert alert-warning alert-dismissible fade show" role="alert" id="my-alert">
-  <strong><%= notice %></strong>
+<div id="my-alert" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 px-4 py-3 rounded relative mb-6" role="alert">
+  <span class="block sm:inline"><strong><%= notice %></strong></span>
+  <button id="close-button" type="button" class="absolute top-0 right-0 mt-3 mr-4 text-yellow-700 hover:text-yellow-500 focus:outline-none" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+
+<turbo-stream target="my-alert"></turbo-stream>
+
+<script>
+  document.addEventListener('turbo:load', function() {
+    const closeButton = document.getElementById('close-button');
+
+    if (closeButton) {
+      closeButton.addEventListener('click', function() {
+        const alert = document.getElementById('my-alert');
+        alert.remove();
+      });
+    }
+  });
+</script>

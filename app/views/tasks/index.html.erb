@@ -17,16 +17,21 @@
     </thead>
     <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
       <% @tasks.each do |task| %>
+      <%if task.user_id == current_user.id%>
+
         <tr class="hover:bg-gray-500 flex w-full mb-4">
           <td class="font-bold p-4 w-1/4"><%= task.title %></td>
           <td class="font-bold p-4 w-1/4"><%= task.description %></td>
           <td class="font-bold p-4 w-1/4"><%= task.dueDate %></td>
         <td class="p-4 w-1/4">
-  <div class="flex justify-between">
-  <%= link_to 'Show', task, class: "font-bold text-blue-500 hover:text-blue-700 hover:bg-white border border-blue-500 rounded-full px-4 py-2 transition duration-300 ease-in-out" %>
-  <%= link_to 'Edit', edit_task_path(task), class: "font-bold text-green-500 hover:text-green-700 hover:bg-white border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
-  <%= button_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "font-bold bg-transparent text-red-500 hover:text-red-700 hover:bg-white border border-red-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
-</div> 
+      <div class="flex justify-between">
+      <%= link_to 'Show', task, class: "font-bold text-blue-500 hover:text-blue-700 hover:bg-white border border-blue-500 rounded-full px-4 py-2 transition duration-300 ease-in-out" %>
+      <%= link_to 'Edit', edit_task_path(task), class: "font-bold text-green-500 hover:text-green-700 hover:bg-white border border-green-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
+      <%= button_to 'Delete', task, method: :delete, remote: true, data: { turbo_confirm: 'Are you sure?' }, class: "font-bold bg-transparent text-red-500 hover:text-red-700 hover:bg-white border border-red-500 rounded-full px-4 py-2 ml-2 transition duration-300 ease-in-out" %>
+      </tr>
+      <%end%>
+</div>
+
 
 </td>
 
@@ -38,4 +43,3 @@
 </div>
 
 <br>
-
