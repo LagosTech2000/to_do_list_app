@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:show, :edit, :update]
+  before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy, :show]
   # GET /tasks or /tasks.json
   def index
@@ -71,8 +71,8 @@ class TasksController < ApplicationController
   end
 
   def correct_user    
-    @friend = current_user.tasks.find_by(id: params[:id ])
-    redirect_to tasks_path, notice: "Not Authorized to edit this Task" if @friend.nil?    
+    @user = current_user.tasks.find_by(id: params[:id ])
+    redirect_to tasks_path, notice: "Not Authorized to edit this Task" if @user.nil?    
   end
 
   private

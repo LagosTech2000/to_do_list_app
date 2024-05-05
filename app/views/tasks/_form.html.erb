@@ -1,4 +1,4 @@
-<%= form_with(model: task, html: { class: "max-w-md mx-auto bg-yellow-100 border-l-4 border-yellow-500 p-6 mb-4 rounded-md shadow-md" }) do |form| %>
+<%= form_with(model: task, html: { class: "max-w-md mx-auto bg-white border-l-8 border-blue-500 p-6 mb-4 rounded-md shadow-md" }) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
       <h2 class="font-semibold"> <%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -13,27 +13,27 @@
 
   <div class="mb-4">
     <%= form.label :title, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_field :title, class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
+    <%= form.text_field :title, class: "text-center bg-gray-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200", maxlength: 30 %>
   </div>
 
   <div class="mb-4">
     <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.text_area :description, class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
+    <%= form.text_area :description, class: "text-center bg-gray-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200", maxlength: 100 %>
   </div>
 
   <div class="mb-4">
     <%= form.label :dueDate, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.datetime_select :dueDate, class: "bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
+    <%= form.datetime_select :dueDate, class: "bg-gray-200 p-2 w-full border border-blue rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
   </div>
 
   <div class="mb-4">
     <%= form.label :status, class: "block text-gray-700 font-bold mb-2" %>
-    <%= form.select :status, ['pending', 'completed'], {}, class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200" %>
+    <%= form.select :status, ['pending', 'completed'], {}, class: "text-center bg-gray-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" %>
   </div>
 
   <div class="mb-4">   
     <%= form.number_field :user_id, id: :task_user_id,
-     class: "text-center bg-yellow-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-200",
+     class: "text-center bg-gray-200 p-2 w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200",
      value: current_user.id, type: :hidden
      %>
   </div>
