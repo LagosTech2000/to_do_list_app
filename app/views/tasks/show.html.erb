@@ -1,22 +1,31 @@
-<div class="max-w-md mx-auto">
-  <div class="bg-white shadow-md rounded-lg px-8 py-6 mb-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Task Details</h1>
+<div class="mt-2 max-w-md mx-auto">
+  <div class="max-w-md mx-auto">
+  <div class="relative bg-yellow-200 rounded-lg overflow-hidden shadow-md">
+    <div class="absolute top-0 left-0 w-0 h-0 border-l-8 border-t-8 border-yellow-400"></div>
+    <div class="p-6">
+      <h1 class="text-3xl font-bold mb-6">Task Details</h1>
 
-    <div class="mb-6">
-      <p class="text-lg font-semibold text-gray-700"><strong>Title:</strong> <%= @task.title %></p>
+      <div class="mb-6">
+        <p class="text-lg font-semibold"><strong>Title:</strong> <%= @task.title %></p>
+      </div>
+
+      <div class="mb-6">
+        <p class="text-lg font-semibold"><strong>Description:</strong> <%= @task.description %></p>
+      </div>
+
+      <div class="mb-6">
+        <p class="text-lg font-semibold"><strong>Due Date:</strong> <%= @task.dueDate.strftime('%Y-%m-%d') %></p>
+      </div>
     </div>
 
-    <div class="mb-6">
-      <p class="text-lg font-semibold text-gray-700"><strong>Description:</strong> <%= @task.description %></p>
-    </div>
-
-    <div class="mb-6">
-      <p class="text-lg font-semibold text-gray-700"><strong>Due Date:</strong> <%= @task.dueDate.strftime('%Y-%m-%d') %></p>
-    </div>
+    <div class="bg-yellow-200 absolute bottom-0 right-0 w-16 h-16"></div>
+    <div class="bg-white absolute bottom-0 right-0 w-12 h-12"></div>
+  </div>
 
     <div class="flex items-center justify-between">
       <%= link_to 'Edit', edit_task_path(@task), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" %>
       <%= link_to 'Back', tasks_path, class: "text-blue-500 hover:text-blue-700 font-semibold" %>
     </div>
   </div>
+</div>
 </div>
