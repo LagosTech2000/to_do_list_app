@@ -1,15 +1,24 @@
 <div class="max-w-3xl mx-auto px-4 my-16">
   <div class="flex items-center justify-between pb-6 border-b dark:border-slate-700">
-    <h1 class="font-bold text-3xl">My Tasks</h1>
-
-    <div>
+    <h1 class="font-bold text-3xl">My Task</h1>
+    <div class="flex items-center justify-end">
       <%= form_with url: tasks_path, method: :get, data: { turbo_frame: "tasks", turbo_action: "advance", controller: 'form', action: "input->form#submit" } do %>
-        <%= text_field_tag "filter", nil, placeholder: "Filter (title, status)", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
+        <%= text_field_tag "filter", nil, placeholder: "Filter (title)", class: "inline-block rounded-md border border-gray-200 outline-none px-3 py-2 w-full" %>
       <% end %>
     </div>
   </div>
-  
-  <%= turbo_frame_tag "tasks" do %>
+
+  <%= turbo_frame_tag "tasks_data" do %>
+    <div class="flex items-center p-3 bg-teal-600 text-white space-x-6 rounded">
+      <%= link_to "Title", tasks_path(column: "title"), class: "underline" %>
+      <%= link_to "Description", tasks_path(column: "description"), class: "underline" %>
+      <!-- <%= link_to "DueDate", tasks_path(column: "dueDate"), class: "underline" %> -->
+      <%= link_to "Status", tasks_path(column: "status"), class: "underline" %>      
+      <%= link_to "Reset filter", tasks_path, class: "underline" %>
+    </div>
+    
+    <%== pagy_nav(@pagy)%>
+      <%= turbo_frame_tag "tasks_data" do %>
    <div class="max-w-full overflow-x-auto flex flex-wrap justify-center">
       <% @tasks.each do |task| %>
         <% if task.user_id == current_user.id %>
@@ -33,6 +42,12 @@
           </div>
         <% end %>
       <% end %>
+      <%== pagy_nav(@pagy)%>
     </div>
   <% end %>
+    </div>
+  <% end %>
+
+
 </div>
+ 
