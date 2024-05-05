@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show, :edit, :update]
+  before_action :correct_user, only: [:edit, :update, :destroy, :show]
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
