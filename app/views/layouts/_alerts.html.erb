@@ -1,15 +1,13 @@
-<div id="my-alert" class="bg-white border-l-8 rounded border-blue-500 text-black px-4 py-3 rounded relative mb-6" role="alert">
+<div id="my-alert" class="bg-blue-50 dark:bg-gray-800 dark:text-blue-400 rounded border-blue-500 text-blue-700 p-4 py-3 rounded relative mb-6" role="alert" data-controller="alert">
   <span class="block sm:inline"><strong><%= notice %></strong></span>
-  <button id="close-button" type="button" class="text-xl absolute top-0 right-0 mt-3 mr-4 text-blue-700 hover:text-blue-500 focus:bg-blue" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
+  <button data-action="click->alert#close" class="text-xl absolute top-0 right-0 mt-2 mr-4 text-blue-700 hover:text-blue-500 focus:bg-blue" aria-label="Close">
+    <span class="text-red-500" aria-hidden="true">&times;</span>
   </button>
 </div>
 
-<turbo-stream target="my-alert"></turbo-stream>
-
 <script>
   document.addEventListener('turbo:load', function() {
-    const closeButton = document.getElementById('close-button');
+    const closeButton = document.querySelector('[data-controller="alert"] button[data-action="click->alert#close"]');
 
     if (closeButton) {
       closeButton.addEventListener('click', function() {

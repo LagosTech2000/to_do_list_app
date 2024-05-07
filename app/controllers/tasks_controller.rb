@@ -8,6 +8,8 @@ class TasksController < ApplicationController
     if params[:filter].present?
       search_query = "%#{params[:filter].downcase}%"
       filtered = Task.where("LOWER(tasks.title) LIKE ? and user_id = ?", search_query, current_user.id)
+    elsif params[:status].present?
+      filtered = Task.where("LOWER(tasks.status) = ? and user_id = ?", params[:status], current_user.id)
     else
      filtered =  Task.where("tasks.user_id = ?", current_user.id)
     end

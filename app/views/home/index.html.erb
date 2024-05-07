@@ -1,24 +1,41 @@
-<div class="container mx-auto">
+<div class="container mx-auto mt-2">
   <h1 class="text-3xl font-bold mb-4">Task Dashboard</h1>
 
   <!-- Tasks Overview -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
     <!-- General dashboard item -->
     <div class="bg-white rounded-lg shadow-md p-4">
-      <h2 class="text-xl font-semibold mb-2">Tasks Overview</h2>
-      <div class="flex items-center mb-2">
-        <span class="mr-2">Total Tasks:</span>
-        <%= @tasks.count %>
-      </div>
-      <div class="flex items-center mb-2">
-        <span class="mr-2">Completed:</span>
-        <%= @tasks.where(status: 'completed').count %>
-      </div>
-      <div class="flex items-center">
-        <span class="mr-2">Pending:</span>
-        <%= @tasks.where(status: 'pending').count %>
-      </div>
+  <h2 class="text-xl font-semibold mb-4">Tasks Overview</h2>
+
+  <!-- Total Tasks -->
+  <div class="flex items-center mb-2">
+    <span class="mr-2">Total Tasks:</span>
+    <%= @tasks.count %>
+  </div>
+
+  <!-- Completed Tasks -->
+  <div class="flex items-center mb-2">
+    <span class="mr-2">Completed:</span>
+    <%= @tasks.where(status: 'completed').count %>
+  </div>
+
+  <!-- Pending Tasks -->
+  <div class="flex items-center mb-4">
+    <span class="mr-2">Pending:</span>
+    <%= @tasks.where(status: 'pending').count %>
+  </div>
+
+  <h2 class="text-xl font-semibold mb-2">Task Progress</h2>
+
+  <!-- Progress Bar -->
+  <div class="flex items-center mb-2">
+    <p class="mr-4"><%= (@tasks.where(status: 'completed').count.to_f / @tasks.count.to_f * 100).round %> % Completed</p>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+      <div class="bg-blue-500 h-2.5 rounded-full" style="width: <%= (@tasks.where(status: 'completed').count.to_f / @tasks.count.to_f * 100).round %>%;"></div>
     </div>
+  </div>
+</div>
+
 
     <!-- Pie Chart -->
     <div class="bg-white rounded-lg shadow-md p-4">
@@ -26,19 +43,7 @@
       <canvas id="taskStatusChart" width="400" height="400"></canvas>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="bg-white rounded-lg shadow-md p-4">
-      <h2 class="text-xl font-semibold mb-2">Task Progress</h2>
-      <div class="flex items-center mb-2">
-        <span class="mr-2">Completed:</span>
-        <div class="progress-bar" style="width: <%= (@tasks.where(status: 'completed').count.to_f / @tasks.count.to_f * 100).round(2) %>%;"></div>
-      </div>
-      <div class="flex items-center">
-        <span class="mr-2">Pending:</span>
-        <div class="progress-bar" style="width: <%= (@tasks.where(status: 'pending').count.to_f / @tasks.count.to_f * 100).round(2) %>%;"></div>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <style>
@@ -59,12 +64,12 @@
         label: 'Task Status Distribution',
         data: [<%= @tasks.where(status: 'completed').count %>, <%= @tasks.where(status: 'pending').count %>],
         backgroundColor: [
-          'rgba(46, 204, 113,0.5)',
-          'rgba(52, 152, 219, 0.5)'
+          'rgb(18,185,129)',
+          'rgb(59,129,246)'
         ],
         borderColor: [
           'rgba(75, 192, 192, 1)',
-          'rgba(255, 99, 132, 1)'
+          'rgba(255, 230, 0, 1)'
         ],
         borderWidth: 1
       }]
