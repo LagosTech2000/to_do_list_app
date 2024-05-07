@@ -23,7 +23,10 @@
             <li><%= link_to 'My To Dos', tasks_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Create Task', new_task_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Edit Profile', edit_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
-            <li><%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "text-black hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 transition duration-300 ease-in-out" %></li>
+            <li>
+              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "text-black hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 transition duration-300 ease-in-out" %> 
+              </li>
+              
           <% else %>
             <li><%= link_to 'Sign Up', new_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Sign In', new_user_session_path, class: "text-white hover:text-blue-300 hover:text-gray-900 px-3 py-2 lg:px-4 lg:py-0" %></li>

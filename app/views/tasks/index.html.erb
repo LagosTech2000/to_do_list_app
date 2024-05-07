@@ -39,7 +39,7 @@
       <% @tasks.each do |task| %>
         <% if task.user_id == current_user.id %>
           <div class="bg-white text-wrap border-l-8 <%= task.status == "pending" ? 'border-blue-500' : 'border-green-500' %> text-black px-6 py-4 rounded-lg shadow-md m-4 max-w-sm">
-            <p class="font-bold text-lg mb-2">
+            <p style="overflow-wrap: break-word;" class="font-bold text-lg mb-2">
               <%= task.title %>
               <span class="inline-block text-white text-xs font-bold capitalize px-2 py-1 rounded-full ml-2 <%= task.status == "pending" ? 'bg-blue-500' : 'bg-green-500' %>">
                 <%= task.status %>
