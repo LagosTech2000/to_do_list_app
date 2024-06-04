@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
     belongs_to :user
+    has_many_attached :images
   
     # Define the possible statuses as a constant
     STATUSES = ["pending", "completed"]

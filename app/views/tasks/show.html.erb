@@ -1,40 +1,49 @@
-<div class="mt-2 max-w-md mx-auto">
-  <div class="max-w-md mx-auto">
-    <div class="relative bg-white rounded-lg overflow-hidden shadow-md">
-      
-      <div class="border-blue-500 border-l-8 p-6 ">
-        <div class="shadow-md pb-2 ">
-
-        <h1 class="text-3xl text-center p-3 font-bold"><%= @task.title %>
-         <span class="text-center inline-block bg-blue-500 text-white text-xs font-bold capitalize px-2 py-1 rounded-full ml-2">
-            <%= @task.status %>
-          </span>
-        </h1>
+<div class="mt-2 max-w-4xl mx-auto">
+  <div class="bg-white rounded-lg overflow-hidden shadow-md">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Left Column -->
+      <div class="border-blue-500 border-l-8 p-6">
+        <div class="shadow-md pb-2">
+          <h1 class="text-3xl text-center p-3 font-bold">
+            <%= @task.title %>
+            <span class="text-center inline-block bg-blue-500 text-white text-xs font-bold capitalize px-2 py-1 rounded-full ml-2">
+              <%= @task.status %>
+            </span>
+          </h1>
         </div>
-         
         <div class="mb-6">
-          <p class="text-lg text-center font-semibold">           
-          
+          <p class="text-lg text-center font-semibold">
+            <!-- Add any additional content here if needed -->
           </p>
         </div>
-
         <div class="mb-6">
-          <p class="text-lg text-center " style="overflow-wrap: break-word;"><strong>Description:</strong> <%= @task.description %></p> <!-- Apply overflow-wrap here -->
+          <p class="text-lg text-center" style="overflow-wrap: break-word;">
+            <strong>Description:</strong> <%= @task.description %>
+          </p>
         </div>
-
         <div class="mb-6">
-          <p class="text-lg text-center font-semibold"><strong>Due Date:</strong> <%= @task.dueDate.strftime('%Y-%m-%d') %></p>
+          <p class="text-lg text-center font-semibold">
+            <strong>Due Date:</strong> <%= @task.dueDate.strftime('%Y-%m-%d') %>
+          </p>
+        </div>
+        <div class="mt-2 flex items-center justify-between">
+          <%= link_to 'Edit', edit_task_path(@task), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" %>
+          <%= link_to 'Back', tasks_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
         </div>
       </div>
 
-      
-      
-    </div>
-
-    <div class="mt-2 flex items-center justify-between">
-      <%= link_to 'Edit', edit_task_path(@task), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" %>
-      <%= link_to 'Back', tasks_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      <!-- Right Column -->
+      <div class="p-6 h-96 overflow-y-auto">
+        <% if @task.images.attached? %>
+          <div class="grid grid-cols-1 gap-4">
+            <% @task.images.each do |image| %>
+              <div class="w-full h-auto">
+                <%= image_tag image, class: "object-cover w-full h-full rounded-lg shadow-md" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 </div>
