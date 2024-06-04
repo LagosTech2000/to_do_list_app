@@ -1,4 +1,4 @@
-<div class="relative" id="notifications-dropdown">
+<div class="relative hidden" id="notifications-dropdown">
   <%= turbo_frame_tag "notifications-dropdown" do %>
     <div class="w-72 origin-top-right absolute right-0 rounded top-full z-20 py-0.5 text-left bg-white border shadow-md lg:block">
       <div class="p-3 font-normal border-b border-gray-200">
@@ -8,7 +8,7 @@
       </div>
       <div class="max-h-60 overflow-y-auto scrollbars show" id="notifications">
         <% if current_user.notifications.unread.any? %>
-          <% current_user.notifications.unread.each do |notification| %>
+          <% current_user.notifications.unread.reverse_each do |notification| %>
             <%= render partial: 'notifications/notification', locals: { notification: notification } %>
           <% end %>
         <% else %>

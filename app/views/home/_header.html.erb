@@ -3,21 +3,7 @@
     <div class="flex items-center justify-between">
       <!-- Brand Logo -->
       <a href="<%= root_path %>" class="text-white hover:text-blue-300 font-bold text-xl">Home</a>
-            <div class="relative"> 
-              <a href="javascript:;" class="block py-3 px-4 flex text-sm rounded-full focus:outline-none" id="notify">
-                <div class="relative inline-block">
-                  <span class="material-symbols-outlined text-2xl text-white">
-                    <i class="fas fa-bell text-yellow-400"></i>
-                  </span>
-                  <%= turbo_stream_from "notifications_unread_count_#{current_user.id}" %>
-                  <span class="flex justify-center absolute text-blue-300 -top-2 ltr:-right-1 rtl:-left-1 text-center bg-rose-500 px-1 text-white rounded-full text-xs"
-                        id="notifications_unread_count">
-                    <%= current_user.notifications.unread.count %>
-                  </span>
-                </div>
-              </a>
-              <%= render 'notifications/dropdown' %>
-            </div>
+           
       <!-- Mobile Menu Toggle Button -->
       <button id="mobile-menu-toggle" class="lg:hidden text-white focus:outline-none">
         <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
@@ -42,6 +28,40 @@
           <% end %>
           
           <li><%= link_to 'About', home_about_path, class: "text-white hover:text-blue-300 hover:text-gray-900 px-3 py-2 lg:px-4 lg:py-0" %></li>
+                  <% if !current_user.nil?%>
+              
+                    <li class="relative"> 
+              <a href="javascript:;" class="block px-4 flex text-sm rounded-full focus:outline-none" id="notify_msg">
+                <div class="relative inline-block">
+                  <span class="material-symbols-outlined text-2xl text-white">
+                    <i class="fas fa-envelope text-yellow-400"></i>
+                  </span>
+                      <%= turbo_stream_from "messages_unread_count_#{current_user.id}" %>
+                  <span class="flex justify-center absolute text-blue-300 -top-2 ltr:-right-1 rtl:-left-1 text-center bg-rose-500 px-1 text-white rounded-full text-xs"
+                        id="messages_unread_count">
+                    <%= current_user.received_messages.unread.count %>
+                  </span>
+                </div>
+              </a>
+              <%= render 'messages/dropdown' %>
+            </li>
+                
+           <li class="relative"> 
+              <a href="javascript:;" class="block px-4 flex text-sm rounded-full focus:outline-none" id="notify">
+                <div class="relative inline-block">
+                  <span class="material-symbols-outlined text-2xl text-white">
+                    <i class="fas fa-bell text-yellow-400"></i>
+                  </span>
+                  <%= turbo_stream_from "notifications_unread_count_#{current_user.id}" %>
+                  <span class="flex justify-center absolute text-blue-300 -top-2 ltr:-right-1 rtl:-left-1 text-center bg-rose-500 px-1 text-white rounded-full text-xs"
+                        id="notifications_unread_count">
+                    <%= current_user.notifications.unread.count %>
+                  </span>
+                </div>
+              </a>
+              <%= render 'notifications/dropdown' %>
+            </li>
+                  <% end%>
         </ul>
       </div>
     </div>
@@ -56,6 +76,24 @@
 
   document.getElementById('notify').addEventListener('click', function() {
     var dropdown = document.getElementById('notifications-dropdown');
+    var dropdown_msg = document.getElementById('messages_dropdown');
     dropdown.classList.toggle('hidden');
+
+    if(!dropdown_msg.classList.contains('hidden')){
+      
+      dropdown_msg.classList.toggle('hidden');
+    }
+  });
+
+  document.getElementById('notify_msg').addEventListener('click', function() {
+    var dropdown = document.getElementById('messages_dropdown');
+    var dropdown_not = document.getElementById('notifications-dropdown');
+    dropdown.classList.toggle('hidden');
+
+    if(!dropdown_not.classList.contains('hidden')){
+      
+      dropdown_not.classList.toggle('hidden');
+    }
+    
   });
 </script>

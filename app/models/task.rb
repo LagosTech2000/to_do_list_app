@@ -10,24 +10,25 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :status, inclusion: { in: STATUSES }
 
-  after_create_commit :create_notification
-  after_update_commit :create_notification
+  after_create_commit :create_notification_for_insert
+  after_update_commit :create_notification_for_update
   after_destroy_commit :create_notification_for_delete
 
   private
 
-  def create_notification
-    action = action_performed == :create ? "added" : "updated" # Determine the action performed
-    description = "#{action.capitalize} task: #{title}"
-    Notification.create(user: user, notifiable: self, read: false, action: action, description: description)
+  def create_notification_for_insert
+    description = "Added task: #{title}"
+    Notification.create(user: user, notifiable: self, read: false, action: "Added", description: description)
   end
 
+  def create_notification_for_update
+    description = "Updated task: #{title}"
+    Notification.create(user: user, notifiable: self, read: false, action: "Updated", description: description)
+  end
+  
   def create_notification_for_delete
     description = "Deleted task: #{title}"
     Notification.create(user: user, notifiable: self, read: false, action: "deleted", description: description)
   end
 
-  def action_performed
-    previous_changes.empty? ? :create : :update # Check if the commit was a create or an update
-  end
 end

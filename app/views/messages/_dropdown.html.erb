@@ -1,0 +1,18 @@
+<div class="relative hidden" id="messages_dropdown">
+  <%= turbo_frame_tag "messages-dropdown" do %>
+    <div class="w-72 origin-top-right absolute right-0 rounded top-full z-20 py-0.5 text-left bg-white border shadow-md lg:block">
+      <div class="p-3 font-normal border-b border-gray-200">
+        <div class="relative">
+          <div class="font-bold">Messages</div>
+        </div>
+      </div>
+      <div class="max-h-60 overflow-y-auto scrollbars show" id="messages_list">
+        <%= turbo_stream_from [current_user, :messages] %>
+        <%= render partial: 'messages/message', collection: current_user.received_messages.order(created_at: :desc).limit(5) %>
+      </div>
+      <div class="p-3 text-center font-normal">
+        <!-- May add something later -->
+      </div>
+    </div>
+  <% end %>
+</div>

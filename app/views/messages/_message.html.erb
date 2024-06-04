@@ -1,0 +1,10 @@
+<div class="flex flex-wrap flex-row pl-2 items-center border-b border-gray-200 py-2">
+  <div class="flex-shrink max-w-full px-2 w-3/4">
+
+  <p><strong><%= message.sender.email %></strong></p>
+  <p><%= message.content %></p>
+    <small class="text-gray-500">
+      <%= time_ago_in_words(message.created_at) %> ago
+    </small>
+  </div>
+</div>
