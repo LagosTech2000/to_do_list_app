@@ -1,0 +1,27 @@
+<div class="relative" id="notifications-dropdown">
+  <%= turbo_frame_tag "notifications-dropdown" do %>
+    <div class="w-72 origin-top-right absolute right-0 rounded top-full z-20 py-0.5 text-left bg-white border shadow-md lg:block">
+      <div class="p-3 font-normal border-b border-gray-200">
+        <div class="relative">
+          <div class="font-bold">Notifications</div>
+        </div>
+      </div>
+      <div class="max-h-60 overflow-y-auto scrollbars show" id="notifications">
+        <% if current_user.notifications.unread.any? %>
+          <% current_user.notifications.unread.each do |notification| %>
+            <%= render partial: 'notifications/notification', locals: { notification: notification } %>
+          <% end %>
+        <% else %>
+          <div class="flex flex-wrap flex-row pl-2 items-center border-b border-gray-200 py-2">
+            <div class="flex-shrink max-w-full px-2 w-3/4">
+              <span>No new notifications</span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="p-3 text-center font-normal">
+        <!-- May add something later -->
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -3,34 +3,44 @@
     <div class="flex items-center justify-between">
       <!-- Brand Logo -->
       <a href="<%= root_path %>" class="text-white hover:text-blue-300 font-bold text-xl">Home</a>
-
+            <div class="relative"> 
+              <a href="javascript:;" class="block py-3 px-4 flex text-sm rounded-full focus:outline-none" id="notify">
+                <div class="relative inline-block">
+                  <span class="material-symbols-outlined text-2xl text-white">
+                    <i class="fas fa-bell text-yellow-400"></i>
+                  </span>
+                  <%= turbo_stream_from "notifications_unread_count_#{current_user.id}" %>
+                  <span class="flex justify-center absolute text-blue-300 -top-2 ltr:-right-1 rtl:-left-1 text-center bg-rose-500 px-1 text-white rounded-full text-xs"
+                        id="notifications_unread_count">
+                    <%= current_user.notifications.unread.count %>
+                  </span>
+                </div>
+              </a>
+              <%= render 'notifications/dropdown' %>
+            </div>
       <!-- Mobile Menu Toggle Button -->
-     <button id="mobile-menu-toggle" class="lg:hidden text-white focus:outline-none">
-    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-        <!-- Font Awesome menu icon when menu is open -->
-        <path v-if="isOpen" d="M4 8h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0-3h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 3h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-
-        <!-- Font Awesome menu icon when menu is closed -->
-        <path v-else d="M4 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
-    </svg>
-</button>
-
+      <button id="mobile-menu-toggle" class="lg:hidden text-white focus:outline-none">
+        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+          <path d="M4 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+        </svg>
+      </button>
 
       <!-- Responsive Menu Items -->
-      <div id="mobile-menu" class="z-[100] hidden lg:flex lg:items-center lg:w-auto">
+      <div id="mobile-menu" class="hidden lg:flex lg:items-center lg:w-auto">
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <% if user_signed_in? %>
             <li><%= link_to 'My To Dos', tasks_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Create Task', new_task_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Edit Profile', edit_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li>
-              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "text-black hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 transition duration-300 ease-in-out" %> 
-              </li>
-              
+              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "text-black hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 transition duration-300 ease-in-out" %>
+            </li>
+            
           <% else %>
             <li><%= link_to 'Sign Up', new_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
             <li><%= link_to 'Sign In', new_user_session_path, class: "text-white hover:text-blue-300 hover:text-gray-900 px-3 py-2 lg:px-4 lg:py-0" %></li>
           <% end %>
+          
           <li><%= link_to 'About', home_about_path, class: "text-white hover:text-blue-300 hover:text-gray-900 px-3 py-2 lg:px-4 lg:py-0" %></li>
         </ul>
       </div>
@@ -42,5 +52,10 @@
   document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
     var mobileMenu = document.getElementById('mobile-menu');
     mobileMenu.classList.toggle('hidden');
+  });
+
+  document.getElementById('notify').addEventListener('click', function() {
+    var dropdown = document.getElementById('notifications-dropdown');
+    dropdown.classList.toggle('hidden');
   });
 </script>
