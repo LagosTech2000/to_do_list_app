@@ -5,19 +5,19 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     #@tasks = Task.all
+    column = params[:column] || 'title'
+
     if params[:filter].present?
       search_query = "%#{params[:filter].downcase}%"
-      filtered = Task.where("LOWER(tasks.title) LIKE ? and user_id = ?", search_query, current_user.id)
+      filtered = Task.where("LOWER(tasks.title) LIKE ? and user_id = ?", search_query, current_user.id)      
     elsif params[:status].present?
       filtered = Task.where("LOWER(tasks.status) = ? and user_id = ?", params[:status], current_user.id)
     else
      filtered =  Task.where("tasks.user_id = ?", current_user.id)
     end
   
-    column = params[:column] || 'description'
-    filtered = filtered.order(column)
-  
-    @pagy, @tasks = pagy(filtered, items: 10)
+    filtered = filtered.order(column)    
+    @pagy, @tasks = pagy(filtered,items:9)
   end
 
   # GET /tasks/1 or /tasks/1.json

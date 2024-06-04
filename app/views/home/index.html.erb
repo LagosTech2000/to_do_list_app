@@ -29,13 +29,14 @@
 
   <!-- Progress Bar -->
   <div class="flex items-center mb-2">
+  <% if @tasks.length() >0 %>
     <p class="mr-4"><%= (@tasks.where(status: 'completed').count.to_f / @tasks.count.to_f * 100).round %> % Completed</p>
     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
       <div class="bg-blue-500 h-2.5 rounded-full" style="width: <%= (@tasks.where(status: 'completed').count.to_f / @tasks.count.to_f * 100).round %>%;"></div>
     </div>
+<% end%>
   </div>
 </div>
-
 
     <!-- Pie Chart -->
     <div class="bg-white rounded-lg shadow-md p-4">
