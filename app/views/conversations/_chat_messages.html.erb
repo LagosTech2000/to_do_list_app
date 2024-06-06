@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "chat_messages" do %>
+  <%= render partial: 'messages/message', collection: @conversation.messages %>
+<% end %>

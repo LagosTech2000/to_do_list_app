@@ -5,9 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
         has_many :tasks
+        has_many :messages
         has_many :notifications, dependent: :destroy
-        
-        has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id'
-        has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id'
-
+     
+        has_many :conversation_users
+        has_many :conversations, through: :conversation_users
+        has_one_attached :avatar
 end

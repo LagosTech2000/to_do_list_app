@@ -1,0 +1,11 @@
+<!-- app/views/shared/_chat_widget.html.erb -->
+<div id="chat-widget" class="border border-gray-300 rounded p-4 max-w-xs">
+  <h3 class="text-lg font-semibold mb-2">Chat Widget</h3>
+  <div id="chat-messages" class="max-h-40 overflow-y-auto mb-4">
+    <%= turbo_stream_from "chat_#{conversation.id}" %>
+  </div>
+  <%= turbo_frame_tag "chat_form_#{conversation.id}" do %>
+    <%= render 'chat_form', conversation: conversation %>
+  <% end %>
+
+

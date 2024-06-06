@@ -11,6 +11,7 @@
     
     <!-- Include Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <!--Include Turbo Links (HotWire) -->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -18,17 +19,19 @@
     <!--include Chart Js -->
     <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chart.js' %>
     
+    
 
   </head>
 
   <body class="bg-gray-100">
     <%= render 'home/header' %>  
     <%if notice  %>
-    <%= render 'layouts/alerts'%>
+    <%= render 'layouts/alerts'%>    
     <% end  %>
     <%= yield %>        
     <%= render 'home/footer' %>  
 
+    <%= turbo_frame_tag "modal" do %> <% end %>
     <%= turbo_include_tags %>
   </body>
 </html>

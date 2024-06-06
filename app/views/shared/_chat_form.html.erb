@@ -1,0 +1,4 @@
+<%= form_with(model: [conversation, Message.new], id: "new_message_#{conversation.id}", local: true, data: { controller: "messages", action: "submit", conversation_id: conversation.id }) do |form| %>
+  <%= form.text_field :content, class: "flex-grow p-2 border border-gray-300 rounded mr-2", placeholder: "Type your message..." %>
+  <%= form.submit "Send", class: "px-4 py-2 bg-blue-500 text-white rounded" %>
+<% end %>

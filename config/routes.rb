@@ -9,4 +9,11 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
+  resources :conversations do
+    member do
+      get 'modal'
+    end
+  end
+  
+  resources :chat_messages
 end
