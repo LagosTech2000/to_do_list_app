@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   resources :conversations do
     member do
       get 'modal'
+      get 'cancel_form'
+      get 'cancel_modal'      
     end
   end
-  
-  resources :chat_messages
+
+  resources :chats
+
 end

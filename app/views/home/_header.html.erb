@@ -16,11 +16,7 @@
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <% if user_signed_in? %>
             <li><%= link_to 'My To Dos', tasks_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
-            <li><%= link_to 'Create Task', new_task_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
-            <li><%= link_to 'Edit Profile', edit_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
-            <li>
-              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "text-black hover:text-white hover:bg-red-500 border border-red-500 rounded-full px-4 transition duration-300 ease-in-out" %>
-            </li>
+            <li><%= link_to 'Create Task', new_task_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>            
             
           <% else %>
             <li><%= link_to 'Sign Up', new_user_registration_path, class: "text-white hover:text-blue-300 px-3 py-2 lg:px-4 lg:py-0" %></li>
@@ -50,8 +46,8 @@
 
             <li>
               <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
+              <button href="javascript:;" id="notify_user" type="button" class="flex text-sm bg-light border-white rounded-full md:me-0 focus:ring-4 focus:ring-yellow-400 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+              <span class="sr-only">Open user menu</span>
 
                   <% if !current_user.nil? %>
                   <% if current_user.avatar.attached? %>
@@ -62,34 +58,36 @@
                    <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
                    <% end %>
                    
-                   <% end %>
+                <% end %>
 
-      </button>
-      <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-        <div class="px-4 py-3">
-          <% if user_signed_in? %>
-          <%= link_to :back do %>                
-          
-          <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"><%= current_user.email%></span>
+              </button>
+              <!-- Dropdown menu -->
+            <div class="relative hidden" id="user-dropdown">
+          <div class="w-50 origin-top-right absolute right-0 rounded top-full z-20 py-0.5 text-left bg-white border shadow-md lg:block">
+            <div class="p-3 font-normal border-b border-gray-200">
+              <% if user_signed_in? %>
+                <div class="relative">
+                  <%= link_to :back do %>
+                    <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><%= current_user.email %></span>
+                  <% end %>
+                </div>
               <% end %>
-          <% end %>
+            </div>
+            <ul class="py-2" aria-labelledby="user-menu-button">
+              <% if user_signed_in? %>
+                <li class="border-b border-gray-200">
+                  <%= link_to 'Edit Profile', edit_user_registration_path, class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+                </li>
+                <li>
+                  <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: " block w-full text-left px-4 py-2 text-gray-700 hover:text-red-400 hover:bg-gray-100" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
 
-        <ul class="py-2" aria-labelledby="user-menu-button">
-          <% if user_signed_in? %>
-             <li><%= link_to 'Edit Profile', edit_user_registration_path, class: "text-blue-900 px-3 py-2 lg:px-4 lg:py-0" %></li>          
-             <hr class="mb-3"/>
-            
-          <li>
-              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "hover:text-red-500 text-blue-900 px-3 py-2 lg:px-4 lg:py-0" %> 
-            </li>          
-          
-          <% end%>
-          
-   
-        </ul>
-      </div>
+      
+
       <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -130,22 +128,54 @@
   document.getElementById('notify').addEventListener('click', function() {
     var dropdown = document.getElementById('notifications-dropdown');
     var dropdown_msg = document.getElementById('messages_dropdown');
+    var dropdown_usr = document.getElementById('user-dropdown');
     dropdown.classList.toggle('hidden');
 
     if(!dropdown_msg.classList.contains('hidden')){
       
       dropdown_msg.classList.toggle('hidden');
     }
+    if(!dropdown_usr.classList.contains('hidden')){
+      
+      dropdown_usr.classList.toggle('hidden');
+    }
   });
 
   document.getElementById('notify_msg').addEventListener('click', function() {
     var dropdown = document.getElementById('messages_dropdown');
     var dropdown_not = document.getElementById('notifications-dropdown');
+    var dropdown_usr = document.getElementById('user-dropdown');
+    
+
     dropdown.classList.toggle('hidden');
 
     if(!dropdown_not.classList.contains('hidden')){
       
       dropdown_not.classList.toggle('hidden');
+    }
+    
+     if(!dropdown_usr.classList.contains('hidden')){
+      
+      dropdown_usr.classList.toggle('hidden');
+    }
+
+  });
+
+  document.getElementById('notify_user').addEventListener('click', function() {
+    var dropdown = document.getElementById('user-dropdown');
+    var dropdown_not = document.getElementById('notifications-dropdown');
+    var dropdown_msg = document.getElementById('messages_dropdown');    
+    dropdown.classList.toggle('hidden');
+
+
+    if(!dropdown_not.classList.contains('hidden')){
+      
+      dropdown_not.classList.toggle('hidden');
+    }
+
+    if(!dropdown_msg.classList.contains('hidden')){
+      
+      dropdown_msg.classList.toggle('hidden');
     }
     
   });

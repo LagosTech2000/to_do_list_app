@@ -9,17 +9,14 @@
       <div class="max-h-60 overflow-y-auto scrollbars show" id="messages_list">
         <%= turbo_stream_from [current_user, :messages] %>
 
-        <%= render partial: 'messages/message', collection: current_user.messages.order(created_at: :desc).limit(5) %>
+        <%= render partial: 'messages/message', collection: current_user.messages.unread.order(created_at: :desc) %>
         
         
       </div>
-            <% end %>
-            Show All Messages
-            <%= link_to modal_conversation_path(0) , turbo_frame: "_top" , data: { turbo_stream: 'modal' } , class: "bg-green-500 rounded-full hover:bg-yellow-400 text-white font-semibold px-2 rounded focus:outline-none" do %>
-            <i class="fas fa-eye">
-            </i>
-            <% end %>
-      </div>
-      
 
+        <%= link_to 'Show All Messages', '/chats' , class: "bg-green-500 rounded-full hover:bg-green-700 text-white font-semibold px-2 rounded focus:outline-none" %>            
+
+    </div>
+      
+   <% end %>
 </div>

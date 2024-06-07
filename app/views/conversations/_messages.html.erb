@@ -1,0 +1,8 @@
+<% messages.each do |message| %>
+  <div class="px-4  mb-2 flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %>">
+    <div class="<%= message.user == current_user ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-900' %> rounded-lg p-3 max-w-xs">
+      <div class="text-sm"><%= message.content %></div>
+      <div class="text-xs text-gray-600 mt-1"><%= time_ago_in_words(message.created_at) %> ago</div>
+    </div>
+  </div>
+<% end %>

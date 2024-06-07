@@ -1,0 +1,10 @@
+  <div class="w-full md:w-2/3 lg:w-3/4 bg-white flex flex-col">
+          <!-- Messages List -->
+          <%= turbo_frame_tag "chat_messages" do %>
+            <div class="flex-1 p-4 overflow-y-auto">
+              <h2 class="text-xl font-bold mb-4">Chat</h2>
+              <div id="chat_messages">
+                <%= render partial: 'chats/messages', collection: @messages %>
+              </div>
+            </div>
+          <% end %>

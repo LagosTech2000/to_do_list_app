@@ -1,0 +1,24 @@
+<!-- app/views/conversations/_new.html.erb -->
+<div class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="bg-white rounded-lg shadow-xl max-h-full w-4/5 md:w-1/2 lg:w-1/3 z-50 overflow-y-auto p-6">
+    <div class="flex justify-between items-center border-b pb-4">
+      <h1 class="text-2xl font-bold">New Conversation</h1>
+
+      <%= link_to cancel_form_conversation_path(1), data: { turbo_frame: "new_conversation_#{current_user.id}" }, class: "text-gray-600 hover:text-gray-900" do %>
+        <i class="fas fa-times"></i>
+      <% end %>
+
+    </div>
+
+    <%= form_with model: @conversation, local: true, class: "space-y-6 mt-4" do |form| %>
+      <div class="space-y-2">
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+      <div>
+        <%= form.submit "Create Conversation", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -31,7 +31,10 @@
     <%= yield %>        
     <%= render 'home/footer' %>  
 
-    <%= turbo_frame_tag "modal" do %> <% end %>
+      <% if current_user%>
+          <%= turbo_frame_tag "modal_#{current_user.id}" do %> <% end %>
+      <% end %>
+
     <%= turbo_include_tags %>
   </body>
 </html>

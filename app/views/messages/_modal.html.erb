@@ -8,7 +8,7 @@
       </button>
     </div>
     <div id="chats" class="overflow-y-auto max-h-64">      
-      <%= render 'messages/message', collection: conversation.messages %>
+      <%= render 'messages/message', collection: conversation.messages.where(user_id: current_user.id) %>
       asdas
     </div>
   </div>

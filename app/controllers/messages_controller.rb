@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  
     def submit
       @conversation = Conversation.find(params[:conversation_id])
       @message = @conversation.messages.create(message_params)
