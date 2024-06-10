@@ -6,6 +6,7 @@ class ConversationsController < ApplicationController
     set_conversations
 
     @conversation = Conversation.new
+
     render turbo_stream: turbo_stream.update(
       "modal_#{current_user.id}",
       partial: 'conversations/modal',
@@ -111,10 +112,19 @@ class ConversationsController < ApplicationController
         )]     
   end
 
+  def search_users
+    @users = User.where("username ILIKE ?", "%#{params[:search]}%").limit(2)
+    render turbo_stream:  turbo_stream.update(
+      "user_select_frame_#{current_user.id}",
+      partial: 'conversations/user_select',
+      locals: { users: @users }
+    )
+  end 
+
   private
 
   def conversation_params
-    params.require(:conversation).permit(:id , :content , :user_id, :conversation_id)
+    params.require(:conversation).permit(:id , :content , :user_id, :conversation_id, :search)
   end
 
   def set_conversations
@@ -127,7 +137,7 @@ class ConversationsController < ApplicationController
       @conversations = ConversationUser.where(conversation_id: conversation_ids)
       @conversations = @conversations.where.not(user_id: current_user.id)      
     else
-      @conversations = Conversation.new
+      @conversations = []
     end
 
   end

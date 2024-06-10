@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :conversations do    
     member do
       get 'modal'
+      get 'search_users'
     end
   end
 

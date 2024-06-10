@@ -42,10 +42,11 @@
 
         <!-- Right Column: Chat Messages and Form -->
         <div class="w-full md:w-2/3 lg:w-3/4 bg-white flex flex-col overflow-y-auto">
-                        <!-- Messages Receiver(s) details -->
+            
+            
+            <!-- Messages Receiver(s) details -->
               <% if @receivers %>             
-                <div class="p-6 bg-white shadow-md rounded-lg">
-                  <h2 class="text-2xl font-bold mb-4">Receivers</h2>
+                <div class="p-6 bg-white shadow-md rounded-lg">                  
                   <div class="flex flex-wrap space-x-4">
                     <% @receivers.first(4).each do |user| %>
                       <div class="relative group">
