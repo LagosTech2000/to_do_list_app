@@ -1,8 +1,11 @@
-<% messages.each do |message| %>
-  <div class="px-4  mb-2 flex <%= message.user == current_user ? 'justify-end' : 'justify-start' %>">
-    <div class="<%= message.user == current_user ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-900' %> rounded-lg p-3 max-w-xs">
-      <div class="text-sm"><%= message.content %></div>
-      <div class="text-xs text-gray-600 mt-1"><%= time_ago_in_words(message.created_at) %> ago</div>
+<% @conversation.messages.each do |message| %>
+  <div class="flex mb-4 <%= message.user == current_user ? 'justify-end' : 'justify-start' %>">
+    <div class="<%= message.user == current_user ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-900' %> rounded-lg p-4 max-w-md shadow-lg">
+      <div class="flex items-center mb-2">
+        <div class="text-sm font-semibold <%= message.user == current_user ? 'text-blue-200' : 'text-gray-700' %>"><%= message.user.username %></div>
+      </div>
+      <div class="text-base border-b border-gray-300 pb-2 mb-2"><%= message.content %></div>
+      <div class="text-xs text-gray-400 mt-1 text-right"><%= time_ago_in_words(message.created_at) %> ago</div>
     </div>
   </div>
 <% end %>

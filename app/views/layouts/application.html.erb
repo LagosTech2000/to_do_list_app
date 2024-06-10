@@ -33,6 +33,8 @@
 
       <% if current_user%>
           <%= turbo_frame_tag "modal_#{current_user.id}" do %> <% end %>
+          <%= turbo_frame_tag "new_conversation_#{current_user.id}", class: "z-51" do %><% end %>
+
       <% end %>
 
     <%= turbo_include_tags %>

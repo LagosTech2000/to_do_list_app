@@ -1,39 +1,67 @@
-<div class="flex h-screen">
-  <!-- Left Column: Conversations List -->
-  <div class="w-full md:w-1/3 lg:w-1/4 bg-gray-100 border-r overflow-y-auto">
-    <div class="p-4">
-      <h2 class="text-xl font-bold mb-4">Conversations</h2>
-      <ul>
-              <% @conversations.each do |conversation| %>
-                <li class="mb-4">
-                  <%= link_to conversation_path(conversation), data: { turbo_frame: "chat_messages" }, class: "flex items-center p-2 hover:bg-gray-200 rounded-lg" do %>
-                    <%= image_tag conversation.user.avatar, class: "w-12 h-12 rounded-full mr-3" if conversation.user.avatar.attached? %>
-                    <div>
-                      <p class="text-gray-900 font-semibold"><%= conversation.user.username %></p>
-                      <p class="text-gray-600 text-sm"><%= conversation.user.email %></p>                      
-                    </div>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
+<div class="flex flex-col h-screen">
+  <div class="bg-sky-500 p-4">
+    <div class="flex justify-between items-center">
+      <div class="text-white font-semibold text-center w-full">Chat</div>
+      <%= link_to cancel_modal_path, data: { turbo_frame: "modal_#{current_user.id}" }, class: "text-white" do %>
+        <i class="fas fa-times text-white"></i>
+      <% end %>
     </div>
   </div>
+  
+  <%= turbo_frame_tag "new_conversation_#{current_user.id}", class: "z-51" do %>        
+  <% end %>
 
-  <!-- Right Column: Chat Messages and Form -->
-  <div class="w-full md:w-2/3 lg:w-3/4 bg-white flex flex-col">
-    <!-- Messages List -->
-    <div class="flex-1 p-4 overflow-y-auto">
-      <h2 class="text-xl font-bold mb-4">Chat</h2>
-      <div id="chat_messages">
-        <%= render partial: 'messages/message', collection: @messages %>
+  <div class="flex flex-grow overflow-hidden">
+    <!-- Left Column: Conversations List -->
+    <div class="w-full md:w-1/3 lg:w-1/4 bg-gray-100 border-r overflow-y-auto">
+      <div class="p-4">
+        <h2 class="text-xl font-bold mb-4">Conversations</h2>
+        <%= link_to new_conversation_path, data: { turbo_frame: "new_conversation_#{current_user.id}" }, class: "text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full mb-4 block text-center" do %>
+          <i class="fas fa-plus"></i>
+        <% end %>
+        <%= turbo_frame_tag "conversations_#{current_user.id}" do %>
+          <ul>
+            <% @conversations.reverse_each do |conversation| %>
+              <li class="mb-4">
+                <%= link_to conversation_path(conversation), data: { turbo_frame: "modal" }, class: "flex items-center p-2 hover:bg-gray-200 rounded-lg" do %>
+                  <% if conversation.user.avatar.attached? %>
+                    <%= image_tag conversation.user.avatar, class: "w-12 h-12 rounded-full mr-3" %>
+                  <% end %>
+                  <div>
+                    <p class="text-gray-900 font-semibold"><%= conversation.user.username %></p>
+                    <p class="text-gray-600 text-sm"><%= conversation.user.email %></p>
+                  </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
 
-    <!-- Message Form -->
-    <div class="p-4 border-t">
-      
+    <!-- Right Column: Chat Messages and Form -->
+    <div class="w-full md:w-2/3 lg:w-3/4 bg-white flex flex-col">
+      <!-- Messages Receiver details -->
+      <div class="p-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold mb-4"><%= @receiver_username %></h2>
+      </div>
+      <!-- Messages List -->
+      <div class="flex-1 p-4 overflow-y-auto">
+        <%= turbo_frame_tag "chat_messages_#{current_user.id}" do %>
+          <div id="chat_messages" class="space-y-4">
+            <%= render partial: 'conversations/messages', collection: @messages %>
+          </div>
+        <% end %>
+      </div>
+      <!-- Message Form -->
+      <div class="p-4 border-t bg-gray-50 sticky bottom-0">
+        <%= form_with model: @message, local: false, data: { turbo_frame: "chat_messages_#{current_user.id}" } do |form| %>
+          <div class="flex items-center">
+            <%= form.text_area :content, class: "flex-1 border rounded p-2 resize-none", rows: 1, placeholder: "Type a message..." %>
+            <%= form.submit "Send", class: "ml-2 bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
-
-

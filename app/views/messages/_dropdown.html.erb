@@ -5,16 +5,26 @@
         <div class="relative">
           <div class="font-bold">Messages</div>
         </div>
+          
+          
       </div>
       <div class="max-h-60 overflow-y-auto scrollbars show" id="messages_list">
         <%= turbo_stream_from [current_user, :messages] %>
 
-        <%= render partial: 'messages/message', collection: current_user.messages.unread.order(created_at: :desc) %>
+        <%= render partial: 'messages/message', collection: @messages_notif%>
         
         
       </div>
 
-        <%= link_to 'Show All Messages', '/chats' , class: "bg-green-500 rounded-full hover:bg-green-700 text-white font-semibold px-2 rounded focus:outline-none" %>            
+
+            <%= link_to modal_conversation_path(-1) , data: { turbo_stream: "modal_#{current_user.id}" } , class: "bg-green-500 rounded-full hover:bg-yellow-400 text-white font-semibold px-2 rounded focus:outline-none" do %>
+            <i class="fas fa-comments">Chats
+            </i>
+            <% end %>
+
+            <%= link_to new_conversation_path, data: { turbo_frame: "new_conversation_#{current_user.id}" } , class: "bg-blue-500 rounded-full hover:bg-gray-400 text-white font-semibold px-4 rounded focus:outline-none" do %>            
+              <i class="fas fa-plus"> New Chat</i>
+            <% end %>
 
     </div>
       

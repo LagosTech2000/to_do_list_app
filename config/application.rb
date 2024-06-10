@@ -1,6 +1,8 @@
 require_relative "boot"
 
 require "rails/all"
+require 'devise'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,6 +21,13 @@ module ToDoListApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    # config/application.rb
+  
+    config.middleware.use Warden::Manager do |manager|
+    Devise.warden_config = manager
+    
+end
+
     
   end
 end

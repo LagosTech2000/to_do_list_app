@@ -1,7 +1,8 @@
+
 <div class="flex flex-wrap flex-row pl-2 items-center border-b border-gray-200 py-2">
   <div class="flex-shrink max-w-full px-2 w-3/4">
-  <% if current_user.id == message.user.id %>
-  <p><strong><%= message.user.email %></strong></p>
+  <% if current_user.id != message.user_id %>
+  <p><strong><%= message.user.username %></strong></p>
   <% else %>
   <p><strong>You</strong></p>
   <% end %>
@@ -10,9 +11,11 @@
       <%= time_ago_in_words(message.created_at) %> ago
     </small>
   </div>
-  <%= link_to modal_conversation_path(message.conversation.id) , data: { turbo_stream: 'modal' } , class: "bg-green-500 rounded-full hover:bg-yellow-400 text-white font-semibold px-2 rounded focus:outline-none" do %>
+
+  <%= link_to conversation_path(message.conversation) , data: { turbo_stream: "modal" } , class: "bg-green-500 rounded-full hover:bg-yellow-400 text-white font-semibold px-2 rounded focus:outline-none" do %>
   <i class="fas fa-eye">
   </i>
   <% end %>
+  
   
 </div>

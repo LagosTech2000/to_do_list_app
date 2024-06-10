@@ -1,0 +1,13 @@
+        <ul>
+        <% @conversations.reverse_each do |conversation| %>
+        <li class="mb-4">
+            <%= link_to conversation_path(conversation), data: { turbo_frame: "modal" }, class: "flex items-center p-2 hover:bg-gray-200 rounded-lg" do %>
+            <%= image_tag conversation.user.avatar, class: "w-12 h-12 rounded-full mr-3" if conversation.user.avatar.attached? %>
+            <div>
+                <p class="text-gray-900 font-semibold"><%= conversation.user.username %></p>
+                <p class="text-gray-600 text-sm"><%= conversation.user.email %></p>
+            </div>
+            <% end %>
+        </li>
+        <% end %>
+        </ul>
