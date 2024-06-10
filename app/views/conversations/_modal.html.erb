@@ -63,12 +63,12 @@
 
           <!-- Messages List -->
           <%= turbo_frame_tag "chat_messages_#{current_user.id}" do %>
-  <div class="flex-1 px-4 p-4 overflow-y-auto bg-gray-100 rounded-lg shadow-inner">
-    <div id="chat_messages" class="space-y-4">
-      <%= render partial: 'conversations/messages' %>
-    </div>
-  </div>     
-<% end %>
+              <div class="flex-1 px-4 p-4 overflow-y-auto bg-gray-100 rounded-lg shadow-inner">
+                 <div id="chat_messages" class="space-y-4">
+                  <%= render partial: 'conversations/messages' %>
+                 </div>
+              </div>     
+          <% end %>
         
       </div>
       </div>

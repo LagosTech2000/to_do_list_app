@@ -11,7 +11,8 @@
       <div class="max-h-60 overflow-y-auto scrollbars show" id="messages_list">
         <%= turbo_stream_from [current_user, :messages] %>
 
-        <%= render partial: 'messages/message', collection: @messages_notif%>
+        <%= render partial: 'messages/message', collection: @messages_notifclear
+        %>
         
         
       </div>

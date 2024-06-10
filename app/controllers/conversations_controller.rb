@@ -135,7 +135,7 @@ class ConversationsController < ApplicationController
     if conversation_ids.any?
       # get all conversations where user is involved, but exluding him
       @conversations = ConversationUser.where(conversation_id: conversation_ids)
-      @conversations = @conversations.where.not(user_id: current_user.id)      
+      @conversations = @conversations.where.not(user_id: current_user.id).select('DISTINCT ON (conversation_id) *').order('conversation_id, created_at DESC')      
     else
       @conversations = []
     end
